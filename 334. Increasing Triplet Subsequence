@@ -1,0 +1,27 @@
+334. Increasing Triplet Subsequence
+
+Given an integer array nums, return true if there exists a triple of indices (i, j, k) 
+such that i < j < k and nums[i] < nums[j] < nums[k]. If no such indices exists, return false.
+
+Input: nums = [2,1,5,0,4,6]
+Output: true
+Explanation: The triplet (3, 4, 5) is valid because nums[3] == 0 < nums[4] == 4 < nums[5] == 6.
+
+Solution:
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int left = Integer.MAX_VALUE; // to store the left(smallest) number of the triplet.
+        int mid = Integer.MAX_VALUE; // to store the mid value of the triplet
+        for(int n:nums){
+            if(n<=left)
+                left = n;
+            else if(n<=mid)
+                mid = n;
+            else // we will reach this part of the code when we have a pair i<j where nums[i]<nums[j], and the current integer n is greater than both.
+                return true;
+        }
+        return false;
+    }
+}
+
