@@ -1,0 +1,39 @@
+Partition Array into Disjoint Intervals
+
+Given an array nums, partition it into two (contiguous) subarrays left and right so that:
+
+Every element in left is less than or equal to every element in right.
+left and right are non-empty.
+left has the smallest possible size.
+Return the length of left after such a partitioning.  It is guaranteed that such a partitioning exists.
+
+Input: nums = [1,1,1,0,6,12]
+Output: 4
+Explanation: left = [1,1,1,0], right = [6,12]
+
+Solution
+
+class Solution {
+    public int partitionDisjoint(int[] nums) {
+        
+        if(nums.length <3)
+            return 1;
+        int obsMax = nums[0]; // observed maximum value while iterating the array
+        int currMax = nums[0]; // current maximum value part of left subarray
+        int index =0; //last index included in left subaaray
+        
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]<currMax){  //if current number <= current maximum of the left array ,extend left subaaray to include this index.
+                index =i;  //update last index.
+                currMax = Math.max(nums[i],obsMax); //update current max in left subaaray to observed max.
+                obsMax = Math.max(obsMax,currMax);  //update observed max
+            }
+            else{
+                obsMax = Math.max(obsMax,nums[i]);  //keep track of max value .
+            }
+        }
+        return index+1;   //return length of left subrray..it will be last index in subrray+1.
+        
+       
+    }
+}
